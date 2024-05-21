@@ -55,6 +55,10 @@ void Attack_And_Union(int x1, int y1, int x2, int y2) {
 						if (Find(a, 0) != a) {
 								if (Find(a, 0) == b) { parent[a] = a, parent[b] = a; }
 								else {
+										// 패배한 국가가 새로 다른 나라를 소유하는 경우
+										// 패배한 국가를 소유한 국가의 관계 무시
+										// 새로운 국가 ID를 더미 값(N + PMAX)로 업데이트
+									
 										if (a + PMAX < 2 * PMAX) {
 												a += PMAX;
 												visited[x1][y1].second = -a;
@@ -106,8 +110,10 @@ void Attack_And_Union(int x1, int y1, int x2, int y2) {
 
 void BFS(ll t, int x1, int y1, int x2, int y2) {
 		static bool flag = false;
-
-		while (day < t && !q.empty()) {
+	
+		// 하루 = 큐의 사이즈만큼만 반복
+	
+		while (day < t && !q.empty()) { 
 				for (int i = 1; i <= M; i++) soldier[i] += territory[i];
 
 				int size = q.size();
